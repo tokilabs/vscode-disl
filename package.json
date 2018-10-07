@@ -1,0 +1,34 @@
+{
+    "name": "disl",
+    "displayName": "Disl",
+    "description": "Add support for disl language",
+    "version": "0.0.1",
+    "publisher": "TheBlacksmith",
+    "engines": {
+        "vscode": "^1.0.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "disl",
+            "aliases": ["Disl", "disl"],
+            "extensions": [".disl"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "disl",
+            "scopeName": "source.disl",
+            "path": "./syntaxes/disl.tmLanguage.json",
+            "embeddedLanguages": {
+                "meta.embedded.block.ts": "ts"
+            }
+        }],
+        "themes": [{
+            "label": "Disl OneDark Pro",
+            "uiTheme": "vs-dark",
+            "path": "./themes/disl.color-theme.json"
+        }]
+    }
+}

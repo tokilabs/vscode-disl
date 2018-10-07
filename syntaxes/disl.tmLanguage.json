@@ -1,0 +1,474 @@
+{
+  "scopeName": "source.disl",
+  "name": "DISL",
+  "fileTypes": [
+    "disl"
+  ],
+  "patterns": [
+    {
+      "begin": "(when)",
+      "end": "\\n",
+      "beginCaptures": {
+        "1": {
+          "name": "keyword.DISL"
+        }
+      },
+      "contentName": "meta.embedded.block.typescript",
+      "patterns": [
+          { "include": "source.ts" }
+      ]
+    },
+    { "include": "#numeric" },
+    { "include": "#comment" },
+    { "include": "#multi_line_comment" },
+    { "include": "#quoted" },
+    { "include": "#alias" },
+    { "include": "#import" },
+    { "include": "#doc" },
+    { "include": "#keywords" },
+    { "include": "#qualifier_class" },
+    { "include": "#command" },
+    { "include": "#event" },
+    { "include": "#exception" },
+    { "include": "#identity" }
+  ],
+  "repository": {
+    "alias": {
+      "patterns": [
+        {
+          "begin": "(alias)",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.DISL"
+            }
+          },
+          "patterns": [
+            { "include": "#alias__1"
+            }
+          ],
+          "end": "(^(?=.{0,1})(?:|))",
+          "endCaptures": {
+            "1": {
+              "name": "comment.DISL"
+            }
+          }
+        }
+      ]
+    },
+    "alias__1": {
+      "patterns": [
+        {
+          "match": "(:[\\w][\\w0-9]*)(\\s+)([\\w][\\w0-9]*)(\\s+)(string|number|array|object|function|date|\\[|\\]\\s+)?([\\w][\\w0-9]*)",
+          "captures": {
+            "1": {
+              "name": "constant.other.symbol.DISL"
+            },
+            "2": {
+              "name": "text.space.DISL"
+            },
+            "3": {
+              "name": "variable.DISL"
+            },
+            "4": {
+              "name": "text.space.DISL"
+            },
+            "5": {
+              "name": "support.type.primitive.DISL"
+            },
+            "6": {
+              "name": "entity.name.class.DISL"
+            }
+          }
+        }
+      ]
+    },
+    "classProperties": {
+      "patterns": [
+        {
+          "match": "(,)",
+          "name": "text.unmatched.DISL"
+        },
+        {
+          "match": "(:[\\w][\\w0-9]*)",
+          "name": "constant.other.symbol.DISL"
+        },
+        {
+          "match": "([\\w][\\w0-9]*\\s*:\\s*)(string|number|array|object|function|date|\\[|\\])([\\<|\\>|\\[|\\]]?[\\<|\\>|\\[|\\]]?)",
+          "captures": {
+            "1": {
+              "name": "variable.DISL"
+            },
+            "2": {
+              "name": "support.type.primitive.DISL"
+            },
+            "3": {
+              "name": "punctuation.DISL"
+            }
+          }
+        },
+        {
+          "match": "([\\w][\\w0-9]*\\s*:\\s*)([\\w][\\w0-9]*[\\<|\\>|\\[|\\]]?(?:string|number|array|object|function|date|\\[|\\]|[\\w][\\w0-9]*)[\\<|\\>|\\[|\\]]?|[\\w][\\w0-9]*)",
+          "captures": {
+            "1": {
+              "name": "variable.DISL"
+            },
+            "2": {
+              "name": "entity.name.class.DISL"
+            }
+          }
+        }
+      ]
+    },
+    "command": {
+      "patterns": [
+        {
+          "begin": "([\\w][\\w0-9]*)(\\?)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.class.command.DISL"
+            },
+            "2": {
+              "name": "keyword.declaration.group.DISL"
+            }
+          },
+          "patterns": [
+            { "include": "#classProperties"
+            }
+          ],
+          "end": "(^(?=.{0,1})(?:|))",
+          "endCaptures": {
+            "1": {
+              "name": "comment.DISL"
+            }
+          }
+        }
+      ]
+    },
+    "comment": {
+      "patterns": [
+        {
+          "match": "((//|#).*)",
+          "name": "comment.DISL"
+        }
+      ]
+    },
+    "destructure": {
+      "patterns": [
+        {
+          "begin": "(\\{)",
+          "beginCaptures": {
+            "1": {
+              "name": "puntuation.DISL"
+            }
+          },
+          "patterns": [
+            { "include": "#destructure__1"
+            }
+          ],
+          "end": "(\\})",
+          "endCaptures": {
+            "1": {
+              "name": "puntuation.DISL"
+            }
+          }
+        },
+        {
+          "match": "(\\})",
+          "name": "invalid.DISL"
+        }
+      ]
+    },
+    "destructure__1": {
+      "patterns": [
+        {
+          "match": "(as)",
+          "name": "keyword.DISL"
+        },
+        {
+          "match": "([\\w][\\w0-9]*)",
+          "name": "variable.DISL"
+        },
+        {
+          "match": "(,)",
+          "name": "puntuation.DISL"
+        }
+      ]
+    },
+    "doc": {
+      "patterns": [
+        {
+          "match": "(@desc)(.*)",
+          "captures": {
+            "1": {
+              "name": "operator.word.desc.DISL"
+            },
+            "2": {
+              "name": "string.quoted.DISL"
+            }
+          }
+        }
+      ]
+    },
+    "event": {
+      "patterns": [
+        {
+          "begin": "([\\w][\\w0-9]*)(!)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.class.event.DISL"
+            },
+            "2": {
+              "name": "keyword.declaration.group.DISL"
+            }
+          },
+          "patterns": [
+            { "include": "#classProperties"
+            }
+          ],
+          "end": "(^(?=.{0,1})(?:|))",
+          "endCaptures": {
+            "1": {
+              "name": "comment.DISL"
+            }
+          }
+        }
+      ]
+    },
+    "exception": {
+      "patterns": [
+        {
+          "begin": "(![\\w][\\w0-9]*)",
+          "beginCaptures": {
+            "1": {
+              "name": "entity.name.class.exception.DISL"
+            }
+          },
+          "patterns": [
+            { "include": "#classProperties"
+            }
+          ],
+          "end": "(^(?=.{0,1})(?:|))",
+          "endCaptures": {
+            "1": {
+              "name": "comment.DISL"
+            }
+          }
+        }
+      ]
+    },
+    "identity": {
+      "patterns": [
+        {
+          "match": "(identity)(\\s+)",
+          "name": "keyword.DISL"
+        },
+        {
+          "begin": "([\\w][\\w0-9]*)",
+          "beginCaptures": {
+            "1": {
+              "name": "variable.DISL"
+            }
+          },
+          "patterns": [
+            { "include": "#identity__1"
+            }
+          ],
+          "end": "(^(?=.{0,1})(?:|))",
+          "endCaptures": {
+            "1": {
+              "name": "comment.DISL"
+            }
+          }
+        }
+      ]
+    },
+    "identity__1": {
+      "patterns": [
+        {
+          "match": "(string|number|array|object|function|date|\\[|\\])",
+          "name": "support.type.primitive.DISL"
+        },
+        {
+          "match": "([\\w][\\w0-9]*)",
+          "name": "entity.name.class.DISL"
+        }
+      ]
+    },
+    "import": {
+      "patterns": [
+        {
+          "match": "(import)",
+          "name": "keyword.DISL"
+        },
+        { "include": "#destructure"
+        },
+        {
+          "match": "(as)(\\s+)([\\w][\\w0-9]*)",
+          "captures": {
+            "1": {
+              "name": "keyword.DISL"
+            },
+            "2": {
+              "name": "text.unmatched.DISL"
+            },
+            "3": {
+              "name": "variable.DISL"
+            }
+          }
+        },
+        {
+          "begin": "(from)",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.DISL"
+            }
+          },
+          "patterns": [
+            { "include": "#import__1"
+            }
+          ],
+          "end": "(^(?=.{0,1})(?:|))",
+          "endCaptures": {
+            "1": {
+              "name": "comment.DISL"
+            }
+          }
+        }
+      ]
+    },
+    "import__1": {
+      "patterns": [
+        { "include": "#quoted"
+        },
+        {
+          "match": "(;)",
+          "name": "puntuation.DISL"
+        }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "match": "(alias|commands|events)",
+          "name": "keyword.DISL"
+        }
+      ]
+    },
+    "multi_line_comment": {
+      "patterns": [
+        {
+          "match": "((//|#).*)",
+          "name": "comment.DISL"
+        },
+        {
+          "begin": "(/\\*)",
+          "beginCaptures": {
+            "1": {
+              "name": "comment.DISL"
+            }
+          },
+          "contentName": "comment.DISL",
+          "end": "(\\*/)",
+          "endCaptures": {
+            "1": {
+              "name": "comment.DISL"
+            }
+          }
+        }
+      ]
+    },
+    "multi_line_comment__1": {
+      "patterns": []
+    },
+    "numeric": {
+      "patterns": [
+        {
+          "match": "(\\b\\d+)",
+          "name": "constant.numeric.DISL"
+        }
+      ]
+    },
+    "qualifier_class": {
+      "patterns": [
+        {
+          "match": "(aggregate|context|extends|implements|root|source)(\\s+)([\\w][\\w0-9]*[\\<|\\>|\\[|\\]]?(?:string|number|array|object|function|date|\\[|\\]|[\\w][\\w0-9]*)[\\<|\\>|\\[|\\]]?|[\\w][\\w0-9]*)",
+          "captures": {
+            "1": {
+              "name": "keyword.declaration.group.DISL"
+            },
+            "2": {
+              "name": "text.space.DISL"
+            },
+            "3": {
+              "name": "entity.name.class.DISL"
+            }
+          }
+        }
+      ]
+    },
+    "quoted": {
+      "patterns": [
+        {
+          "begin": "(\\\")",
+          "beginCaptures": {
+            "1": {
+              "name": "string.DISL"
+            }
+          },
+          "patterns": [
+            { "include": "#quoted__1"
+            }
+          ],
+          "end": "(\\\")",
+          "endCaptures": {
+            "1": {
+              "name": "string.DISL"
+            }
+          }
+        },
+        {
+          "begin": "(\\')",
+          "beginCaptures": {
+            "1": {
+              "name": "string.DISL"
+            }
+          },
+          "patterns": [
+            { "include": "#quoted__2"
+            }
+          ],
+          "end": "(\\')",
+          "endCaptures": {
+            "1": {
+              "name": "string.DISL"
+            }
+          }
+        }
+      ]
+    },
+    "quoted__1": {
+      "patterns": [
+        {
+          "match": "(\\\\(?:\\\\|\"))",
+          "name": "constant.character.escape.DISL"
+        },
+        {
+          "match": "([^\"\\\\]+)",
+          "name": "string.quoted.DISL"
+        }
+      ]
+    },
+    "quoted__2": {
+      "patterns": [
+        {
+          "match": "(\\\\(?:\\\\|'))",
+          "name": "constant.character.escape.DISL"
+        },
+        {
+          "match": "([^'\\\\]+)",
+          "name": "string.quoted.DISL"
+        }
+      ]
+    }
+  }
+}
