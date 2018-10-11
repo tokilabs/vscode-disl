@@ -106,7 +106,7 @@
           }
         },
         {
-          "match": "([\\w][\\w0-9]*\\s*:\\s*)([\\w][\\w0-9]*[\\<|\\>|\\[|\\]]?(?:string|number|array|object|function|date|\\[|\\]|[\\w][\\w0-9]*)[\\<|\\>|\\[|\\]]?|[\\w][\\w0-9]*)",
+          "match": "([\\w][\\w0-9]*[\\?\\+]?\\s*:\\s*)([\\w][\\w0-9]*[\\<|\\>|\\[|\\]]?(?:string|number|array|object|function|date|\\[|\\]|[\\w][\\w0-9]*)[\\<|\\>|\\[|\\]]?|[\\w][\\w0-9]*)",
           "captures": {
             "1": {
               "name": "variable.DISL"
@@ -446,7 +446,7 @@
     "qualifier_class": {
       "patterns": [
         {
-          "match": "(aggregate|context|extends|implements|root|source)(\\s+)([\\w][\\w0-9]*[\\<|\\>|\\[|\\]]?(?:string|number|array|object|function|date|\\[|\\]|[\\w][\\w0-9]*)[\\<|\\>|\\[|\\]]?|[\\w][\\w0-9]*)",
+          "match": "(aggregate|context|extends|implements|root|source|entity)(\\s+)([\\w][\\w0-9]*[\\<|\\>|\\[|\\]]?(?:string|number|array|object|function|date|\\[|\\]|[\\w][\\w0-9]*)[\\<|\\>|\\[|\\]]?|[\\w][\\w0-9]*)",
           "captures": {
             "1": {
               "name": "keyword.declaration.group.DISL"
