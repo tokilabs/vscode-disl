@@ -24,11 +24,11 @@
     { "include": "#quoted" },
     { "include": "#alias" },
     { "include": "#import" },
-    { "include": "#doc" },
     { "include": "#keywords" },
     { "include": "#qualifier_class" },
     { "include": "#command" },
     { "include": "#event" },
+    { "include": "#classProperties" },
     { "include": "#exception" },
     { "include": "#identity" }
   ],
@@ -43,8 +43,7 @@
             }
           },
           "patterns": [
-            { "include": "#alias__1"
-            }
+            { "include": "#alias__1" }
           ],
           "end": "(^(?=.{0,1})(?:|))",
           "endCaptures": {
@@ -82,18 +81,18 @@
         }
       ]
     },
-    "classProperties": {
+    "constructorParams": {
       "patterns": [
         {
           "match": "(,)",
           "name": "text.unmatched.DISL"
         },
         {
-          "match": "(:[\\w][\\w0-9]*)",
+          "match": "(:[\\w][\\w0-9]*[\\?\\+]?)",
           "name": "constant.other.symbol.DISL"
         },
         {
-          "match": "([\\w][\\w0-9]*\\s*:\\s*)(string|number|array|object|function|date|\\[|\\])([\\<|\\>|\\[|\\]]?[\\<|\\>|\\[|\\]]?)",
+          "match": "([\\w][\\w0-9]*[\\?\\+]?\\s*:\\s*)(string|number|array|object|function|date|\\[|\\])([\\<|\\>|\\[|\\]]?[\\<|\\>|\\[|\\]]?)",
           "captures": {
             "1": {
               "name": "variable.DISL"
@@ -119,6 +118,60 @@
         }
       ]
     },
+    "classProperties": {
+      "patterns": [
+        {
+          "match": "(@[\\w][\\w0-9]*[\\?\\+]?)(\\s*:\\s*)(string|number|array|object|function|date|\\[|\\])([\\<|\\>|\\[|\\]]?[\\<|\\>|\\[|\\]]?)",
+          "captures": {
+            "1": {
+              "name": "variable.DISL"
+            },
+            "2": {
+              "name": "punctuation.DISL"
+            },
+            "3": {
+              "name": "support.type.primitive.DISL"
+            },
+            "4": {
+              "name": "punctuation.DISL"
+            },
+            "5": {
+              "name": "punctuation.DISL"
+            }
+          }
+        },
+        {
+          "match": "(@[\\w][\\w0-9]*[\\?\\+]?)(\\s*:\\s*)([\\w][\\w0-9]*[\\<|\\>|\\[|\\]]?(?:string|number|array|object|function|date|\\[|\\]|[\\w][\\w0-9]*)[\\<|\\>|\\[|\\]]?|[\\w][\\w0-9]*)",
+          "captures": {
+            "1": {
+              "name": "variable.DISL"
+            },
+            "2": {
+              "name": "punctuation.DISL"
+            },
+            "3": {
+              "name": "entity.name.class.DISL"
+            },
+            "4": {
+              "name": "punctuation.DISL"
+            }
+          }
+        },
+        {
+          "begin": "(\\s*=\\s*)",
+          "end": "\\n",
+          "beginCaptures": {
+            "1": {
+              "name": "keyword.DISL"
+            }
+          },
+          "contentName": "meta.embedded.block.typescript",
+          "patterns": [
+              { "include": "source.ts" }
+          ]
+        }
+      ]
+    },
     "command": {
       "patterns": [
         {
@@ -132,8 +185,7 @@
             }
           },
           "patterns": [
-            { "include": "#classProperties"
-            }
+            { "include": "#constructorParams" }
           ],
           "end": "(^(?=.{0,1})(?:|))",
           "endCaptures": {
@@ -197,7 +249,7 @@
     "doc": {
       "patterns": [
         {
-          "match": "(@desc)(.*)",
+          "match": "(@desc )(.*)",
           "captures": {
             "1": {
               "name": "operator.word.desc.DISL"
@@ -222,7 +274,7 @@
             }
           },
           "patterns": [
-            { "include": "#classProperties"
+            { "include": "#constructorParams"
             }
           ],
           "end": "(^(?=.{0,1})(?:|))",
@@ -244,7 +296,7 @@
             }
           },
           "patterns": [
-            { "include": "#classProperties"
+            { "include": "#constructorParams"
             }
           ],
           "end": "(^(?=.{0,1})(?:|))",
@@ -367,6 +419,9 @@
               "name": "comment.DISL"
             }
           },
+          "patterns": [
+            { "include": "#doc" }
+          ],
           "contentName": "comment.DISL",
           "end": "(\\*/)",
           "endCaptures": {

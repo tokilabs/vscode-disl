@@ -7,3 +7,12 @@ After specifying the domain in a `.disl` file, the Disl CLI parses it and can ge
 a project or simply return an object representing the domain.
 
 The language parser and generator are **private** and will be sold to the highest bidder at the end of 2018.
+
+## In the Extension
+
+- Syntax highlighter for `.disl` files
+- Custom theme based on One Dark Pro
+
+## Language and Theme preview
+
+![Screenshot](preview.png)

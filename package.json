@@ -3,7 +3,8 @@
     "displayName": "Disl",
     "description": "Add support for disl language",
     "version": "0.0.1",
-    "publisher": "TheBlacksmith",
+    "publisher": "TokiLabs",
+    "repository": "https://github.com/tokilabs/vscode-disl.git",
     "engines": {
         "vscode": "^1.0.0"
     },
@@ -26,7 +27,7 @@
             }
         }],
         "themes": [{
-            "label": "Disl OneDark Pro",
+            "label": "One Dark Pro (+Disl)",
             "uiTheme": "vs-dark",
             "path": "./themes/disl.color-theme.json"
         }]
